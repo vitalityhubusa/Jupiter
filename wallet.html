@@ -1,0 +1,1098 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1118">
+<title>Novax Wallet</title>
+
+<style>
+:root{
+  --bg:#0b1118;
+  --p:#121d28;
+  --p2:#182634;
+  --line:#293b4c;
+  --txt:#edf3f8;
+  --muted:#91a0af;
+  --gold:#f0c35b;
+  --green:#39c99a;
+  --red:#f07882;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font:14px/1.5 Inter,system-ui,Arial,sans-serif;
+}
+button,input{font:inherit}
+.app{
+  max-width:470px;
+  min-height:100vh;
+  margin:auto;
+  background:linear-gradient(180deg,#101a25,#0c131b);
+  padding-bottom:90px;
+}
+.demo{
+  position:fixed;
+  z-index:30;
+  top:10px;
+  right:12px;
+  background:#2a2416;
+  border:1px solid #655024;
+  color:#f2c95f;
+  border-radius:20px;
+  padding:4px 9px;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1px;
+}
+.top{
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid #1e2a37;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:850;
+}
+.logo{
+  width:32px;
+  height:32px;
+  border-radius:11px;
+  background:linear-gradient(145deg,#f4cd69,#b78020);
+  color:#151a20;
+  display:grid;
+  place-items:center;
+}
+.icon{
+  width:36px;
+  height:36px;
+  border:1px solid var(--line);
+  background:var(--p2);
+  color:#dce5ed;
+  border-radius:12px;
+  margin-left:7px;
+}
+.page{display:none;padding:20px}
+.page.active{display:block}
+.muted,.sub{color:var(--muted)}
+.hello{font-size:13px;color:var(--muted)}
+h1{font-size:23px;margin:3px 0 20px}
+.balancecard{
+  padding:21px;
+  border-radius:21px;
+  background:radial-gradient(circle at 90% 0%,#344459,#1b2b3b 45%,#172432);
+  border:1px solid #304253;
+}
+.balance{
+  font-size:39px;
+  font-weight:850;
+  letter-spacing:-1.5px;
+  margin:13px 0 0;
+}
+.balance small{font-size:15px;color:#bdc9d4}
+.approx{color:#93a3b3;font-size:12px}
+.pnl{margin-top:16px;color:var(--green);font-size:12px}
+.actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:19px 0 24px;
+}
+.action{
+  border:0;
+  background:transparent;
+  color:#dce5ed;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  gap:8px;
+  font-size:11px;
+}
+.bubble{
+  width:54px;
+  height:54px;
+  border-radius:17px;
+  background:#172432;
+  border:1px solid #2a3b4c;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  color:var(--gold);
+}
+.section{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:20px 0 12px;
+  font-weight:750;
+}
+.panel{
+  background:var(--p);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  margin-top:12px;
+}
+.assetrow,.market{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #263543;
+  gap:10px;
+}
+.assetrow:last-child,.market:last-child{border:0}
+.coin{display:flex;align-items:center;gap:11px}
+.coinicon{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#273747;
+  color:var(--gold);
+  display:grid;
+  place-items:center;
+  font-weight:850;
+}
+.tiny{font-size:11px;color:var(--muted)}
+.nav{
+  position:fixed;
+  z-index:20;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(470px,100%);
+  height:76px;
+  background:#101923;
+  border-top:1px solid #263442;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav button{
+  border:0;
+  background:transparent;
+  color:#7e8d9c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:4px;
+  font-size:19px;
+}
+.nav span{font-size:10px}
+.nav .active{color:var(--gold)}
+.tabs{
+  display:flex;
+  gap:20px;
+  overflow:auto;
+  white-space:nowrap;
+  border-bottom:1px solid #263442;
+  padding-bottom:14px;
+  color:#8796a5;
+  font-weight:700;
+}
+.tabs b{color:var(--gold)}
+.primary{
+  border:0;
+  border-radius:12px;
+  padding:13px 17px;
+  background:linear-gradient(135deg,#f3cf72,#dcae3b);
+  color:#151a20;
+  font-weight:800;
+}
+.secondary{
+  border:1px solid #304252;
+  background:#172432;
+  color:#e4ebf2;
+  border-radius:11px;
+  padding:11px 14px;
+}
+.wide{width:100%;margin-top:13px}
+.modalbg{
+  display:none;
+  position:fixed;
+  z-index:40;
+  inset:0;
+  background:#05090edb;
+  align-items:flex-end;
+  justify-content:center;
+  padding:12px;
+}
+.modalbg.show{display:flex}
+.modal{
+  width:min(446px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#121d28;
+  border:1px solid #344555;
+  border-radius:24px;
+  padding:22px;
+}
+.mh{display:flex;justify-content:space-between;align-items:center}
+.modal h2{font-size:20px;margin:0}
+.modal p{color:#94a3b1;font-size:12px;margin:7px 0 15px}
+.x{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:50%;
+  background:#243342;
+  color:#d9e1e8;
+  font-size:19px;
+}
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.method{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  text-align:left;
+  padding:14px;
+  border:1px solid #2c3d4d;
+  border-radius:14px;
+  background:#172432;
+  color:#eef3f7;
+}
+.mi{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:#253747;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+}
+.method small{display:block;color:#8fa0af;font-size:10px}
+.field{
+  display:block;
+  color:#aab7c4;
+  font-size:11px;
+  font-weight:700;
+  margin:15px 0 7px;
+}
+.input{
+  width:100%;
+  border:1px solid #304151;
+  background:#0e1720;
+  color:#f0f4f8;
+  border-radius:11px;
+  padding:13px;
+  outline:none;
+}
+.summary{
+  background:#0e1720;
+  border:1px solid #2b3c4c;
+  border-radius:14px;
+  padding:14px;
+  margin-top:15px;
+}
+.sumrow{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:5px 0;
+  color:#9baab8;
+  font-size:12px;
+}
+.sumrow strong{color:#edf3f8}
+.total{border-top:1px solid #2a3948;margin-top:7px;padding-top:10px}
+.help{font-size:11px;color:#8292a1;margin-top:9px}
+.notice{
+  border:1px solid #665329;
+  background:#2a2418;
+  color:#e9ca7d;
+  border-radius:13px;
+  padding:13px;
+  margin:14px 0;
+}
+.timer{font-size:34px;font-weight:850;color:var(--gold)}
+.progress{
+  height:6px;
+  background:#283746;
+  border-radius:9px;
+  overflow:hidden;
+  margin:13px 0;
+}
+.progress span{
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#d6a73a,#f4d47e);
+}
+.toast{
+  display:none;
+  position:fixed;
+  z-index:60;
+  bottom:90px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#eaf0f5;
+  color:#18212a;
+  border-radius:20px;
+  padding:10px 15px;
+  font-size:12px;
+}
+@media(min-width:520px){
+  body{padding:18px 0}
+  .app{border-radius:24px;min-height:calc(100vh - 36px);overflow:hidden}
+  .nav{bottom:18px;border-radius:0 0 24px 24px}
+}
+</style>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="./firebase-config.js"></script>
+
+<script>
+// Exchange rate and balance display
+let currentWalletBalance = 0;
+let usdtBdtRate = 122;
+
+function updateWalletFigures(balance){
+  currentWalletBalance = Number(balance || 0);
+
+  const bdt = currentWalletBalance * usdtBdtRate;
+  const formattedBdt = bdt.toLocaleString('en-BD',{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+
+  const homeBdt = document.getElementById('obsHomeBdt');
+  const assetBdt = document.getElementById('obsHomeAssetBdt');
+  const assetsBdt = document.getElementById('obsAssetsBdt');
+
+  if(homeBdt) homeBdt.textContent = '≈ ৳' + formattedBdt + ' BDT';
+  if(assetBdt) assetBdt.textContent = '৳' + formattedBdt;
+  if(assetsBdt) assetsBdt.textContent = '≈ ৳' + formattedBdt + ' BDT';
+
+  // Daily PNL baseline
+  const today = [
+    new Date().getFullYear(),
+    String(new Date().getMonth()+1).padStart(2,'0'),
+    String(new Date().getDate()).padStart(2,'0')
+  ].join('-');
+
+  const storageKey = 'obsidianPnlBase_' + today;
+  let baseBalance = localStorage.getItem(storageKey);
+
+  if(baseBalance === null){
+    baseBalance = currentWalletBalance;
+    localStorage.setItem(storageKey,String(baseBalance));
+  }
+
+  baseBalance = Number(baseBalance);
+  const pnl = currentWalletBalance - baseBalance;
+  const percentage = baseBalance > 0 ? pnl / baseBalance * 100 : 0;
+
+  const pnlElement = document.getElementById('obsTodayPnl');
+
+  if(pnlElement){
+    const sign = pnl >= 0 ? '+' : '';
+    pnlElement.textContent =
+      '↗  Today\'s PNL  ' +
+      sign + pnl.toFixed(2) +
+      ' USDT (' + sign + percentage.toFixed(2) + '%)';
+
+    pnlElement.style.color = pnl < 0 ? 'var(--red)' : 'var(--green)';
+  }
+}
+
+async function updateBdtRate(){
+  try{
+    const response = await fetch('https://open.er-api.com/v6/latest/USD');
+    const result = await response.json();
+
+    if(result && result.rates && result.rates.BDT){
+      usdtBdtRate = Number(result.rates.BDT);
+    }
+  }catch(error){
+    console.log('Exchange rate unavailable:',error);
+  }
+
+  updateWalletFigures(currentWalletBalance);
+}
+
+updateBdtRate();
+setInterval(updateBdtRate,300000);
+
+// Firebase wallet receiver
+(async function(){
+  try{
+    if(!firebase.apps.length){
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    await firebase.auth().signInAnonymously();
+
+    const db = firebase.firestore();
+    const walletRef = db.collection('demo_wallets').doc('obsidian');
+
+    await db.runTransaction(async function(tx){
+      const snap = await tx.get(walletRef);
+      if(!snap.exists){
+        tx.set(walletRef,{balance:0,processed:[]});
+      }
+    });
+
+    // Wallet balance listener
+    walletRef.onSnapshot(function(snap){
+      const amount = Number((snap.data() || {}).balance || 0);
+      const value = amount.toFixed(2);
+
+      [
+        'obsHomeBalance',
+        'obsAssetsBalance',
+        'obsHomeAsset',
+        'obsAssetsAsset'
+      ].forEach(function(id){
+        const el = document.getElementById(id);
+        if(el) el.textContent = value;
+      });
+
+      updateWalletFigures(amount);
+    });
+
+    // Incoming transfer sync
+    db.collection('obsidian_transfers')
+      .where('destination','==','ObsidianWallet')
+      .onSnapshot(async function(snapshot){
+        for(const doc of snapshot.docs){
+          try{
+            const transfer = doc.data() || {};
+            if(transfer.status !== 'sent') continue;
+
+            await db.runTransaction(async function(tx){
+              const walletSnap = await tx.get(walletRef);
+              const wallet = walletSnap.data() || {
+                balance:0,
+                processed:[]
+              };
+
+              const processed = wallet.processed || [];
+              if(processed.indexOf(doc.id) !== -1) return;
+
+              tx.set(walletRef,{
+                balance:
+                  Number(wallet.balance || 0) +
+                  Number(transfer.amount || 0),
+                processed:
+                  firebase.firestore.FieldValue.arrayUnion(doc.id)
+              },{merge:true});
+            });
+          }catch(err){
+            console.error('Transfer sync:',err);
+          }
+        }
+      });
+
+    // Transaction history
+    db.collection('obsidian_transfers')
+      .where('destination','==','ObsidianWallet')
+      .onSnapshot(function(snapshot){
+        const history = document.getElementById('obsTransactionHistory');
+        if(!history) return;
+
+        if(snapshot.empty){
+          history.innerHTML = '<div class="tiny">No transactions yet</div>';
+          return;
+        }
+
+        const transactions = snapshot.docs.map(function(doc){
+          return {id:doc.id,...doc.data()};
+        });
+
+        transactions.sort(function(a,b){
+          const ta = a.createdAt && a.createdAt.toMillis
+            ? a.createdAt.toMillis() : 0;
+          const tb = b.createdAt && b.createdAt.toMillis
+            ? b.createdAt.toMillis() : 0;
+          return tb - ta;
+        });
+
+        history.innerHTML = transactions.map(function(tx){
+          const amount = Number(tx.amount || 0);
+          const date = tx.createdAt && tx.createdAt.toDate
+            ? tx.createdAt.toDate().toLocaleString()
+            : 'Date unavailable';
+
+          const status = String(tx.status || 'Pending');
+
+          return `
+            <div class="assetrow">
+              <div>
+                <b>USDT Transfer</b>
+                <div class="tiny">${date}</div>
+                <div class="tiny">Status: ${escapeHtml(status)}</div>
+              </div>
+              <div style="text-align:right">
+                <b style="color:var(--green)">+${amount.toFixed(2)} USDT</b>
+              </div>
+            </div>
+          `;
+        }).join('');
+      });
+
+  }catch(err){
+    console.error('Firebase connection:',err);
+  }
+})();
+</script>
+</head>
+
+<body>
+
+<div class="app">
+<header class="top">
+  <div class="brand">
+    <div class="logo">N</div>
+    Novax
+  </div>
+  <div>
+    <button class="icon" onclick="toast('No new notifications')">♧</button>
+    <button class="icon" onclick="toast('Help centre')">?</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<main class="page active" id="home">
+  <div class="hello">Good evening</div>
+  <h1>Your wallet</h1>
+
+  <div class="notice" id="accountStatusPanel" style="display:none">
+    <b id="accountStatusHeading">ACCOUNT STATUS</b>
+    <div id="accountStatusText" style="margin-top:5px;font-size:12px"></div>
+  </div>
+
+  <div class="balancecard">
+    <div class="row muted">Estimated total balance <span>◉ USDT</span></div>
+    <div class="balance">
+      <span id="obsHomeBalance">0.00</span> <small>USDT</small>
+    </div>
+    <div class="approx" id="obsHomeBdt">≈ ৳0.00 BDT</div>
+    <div class="pnl" id="obsTodayPnl">
+      ↗ Today's PNL +0.00 USDT (0.00%)
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="action" onclick="openMethods()"><span class="bubble">↑</span>Send</button>
+    <button class="action" onclick="toast('Receive address is not connected')"><span class="bubble">↓</span>Receive</button>
+    <button class="action" onclick="toast('Transfer preview')"><span class="bubble">⇄</span>Transfer</button>
+    <button class="action" onclick="toast('No rewards available')"><span class="bubble">✧</span>Rewards</button>
+  </div>
+
+  <div class="section">
+    Assets
+    <button class="secondary" onclick="go('assets')">View all ›</button>
+  </div>
+
+  <div class="panel">
+    <div class="assetrow">
+      <div class="coin">
+        <div class="coinicon">₮</div>
+        <div><b>USDT</b><div class="tiny">Tether</div></div>
+      </div>
+      <div style="text-align:right">
+        <b id="obsHomeAsset">0.00</b>
+        <div class="tiny" id="obsHomeAssetBdt">৳0.00</div>
+      </div>
+    </div>
+
+    <div class="assetrow">
+      <div class="coin">
+        <div class="coinicon">₿</div>
+        <div><b>BTC</b><div class="tiny">Bitcoin</div></div>
+      </div>
+      <div style="text-align:right">
+        <b>0.000000</b>
+        <div class="tiny">৳0.00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">Market overview <span class="tiny">Indicative</span></div>
+  <div class="panel">
+    <div class="market"><b>BTC / USDT</b><b>$67,420.00　<span style="color:var(--green)">+1.24%</span></b></div>
+    <div class="market"><b>ETH / USDT</b><b>$3,420.00　<span style="color:var(--green)">+0.82%</span></b></div>
+    <div class="market"><b>SOL / USDT</b><b>$145.20　<span style="color:var(--red)">−0.35%</span></b></div>
+  </div>
+</main>
+
+<!-- ASSETS -->
+<main class="page" id="assets">
+  <div class="tabs">
+    <b>Overview</b><span>Spot</span><span>Earn</span><span>Funding</span><span>History</span>
+  </div>
+
+  <div class="section">Estimated total balance</div>
+  <div class="balance">
+    <span id="obsAssetsBalance">0.00</span> <small>USDT</small>
+  </div>
+  <div class="approx" id="obsAssetsBdt">≈ ৳0.00 BDT</div>
+
+  <div class="actions">
+    <button class="action" onclick="toast('Add funds unavailable')"><span class="bubble">＋</span>Add funds</button>
+    <button class="action" onclick="openMethods()"><span class="bubble">↑</span>Send</button>
+    <button class="action" onclick="toast('Transfer preview')"><span class="bubble">⇄</span>Transfer</button>
+    <button class="action" onclick="toast('No rewards available')"><span class="bubble">✧</span>Rewards</button>
+  </div>
+
+  <div class="panel">
+    <b>Asset allocation</b>
+    <div style="height:7px;background:#263645;border-radius:9px;margin-top:18px"></div>
+  </div>
+
+  <div class="section">Your assets</div>
+  <div class="panel">
+    <div class="assetrow">
+      <div class="coin"><div class="coinicon">₮</div><b>USDT</b></div>
+      <b id="obsAssetsAsset">0.00</b>
+    </div>
+    <div class="assetrow">
+      <div class="coin"><div class="coinicon">₿</div><b>BTC</b></div>
+      <b>0.000000</b>
+    </div>
+  </div>
+
+  <!-- TRANSACTION HISTORY -->
+  <div class="section">
+    Transaction History
+    <span class="tiny">Recent activity</span>
+  </div>
+
+  <div class="panel" id="obsTransactionHistory">
+    <div class="tiny">Loading transactions...</div>
+  </div>
+</main>
+
+<!-- MARKETS -->
+<main class="page" id="markets">
+  <h1>Markets</h1>
+  <div class="panel">
+    <div class="market"><b>BTC / USDT</b><b>$67,420.00</b></div>
+    <div class="market"><b>ETH / USDT</b><b>$3,420.00</b></div>
+    <div class="market"><b>SOL / USDT</b><b>$145.20</b></div>
+  </div>
+</main>
+
+<!-- TRADE -->
+<main class="page" id="trade">
+  <h1>Trade</h1>
+  <div class="panel">
+    Trading workspace
+    <p class="help">Order placement is not connected.</p>
+  </div>
+</main>
+
+<!-- FUTURES -->
+<main class="page" id="futures">
+  <h1>Futures</h1>
+  <div class="panel">Futures market<p class="help">Market information preview.</p></div>
+</main>
+
+<nav class="nav">
+  <button class="active" onclick="go('home',this)">⌂<span>Home</span></button>
+  <button onclick="go('markets',this)">⌁<span>Markets</span></button>
+  <button onclick="go('trade',this)">⇄<span>Trade</span></button>
+  <button onclick="go('futures',this)">▤<span>Futures</span></button>
+  <button onclick="go('assets',this)">▣<span>Assets</span></button>
+</nav>
+</div>
+
+<!-- SEND METHOD MODAL -->
+<div class="modalbg" id="methods">
+  <section class="modal">
+    <div class="mh">
+      <h2>Send funds</h2>
+      <button class="x" onclick="closeM('methods')">×</button>
+    </div>
+    <p>Select a transfer method.</p>
+    <div class="methods">
+      <button class="method" onclick="choose('bKash')"><span class="mi">◉</span><span><strong>bKash</strong><small>Mobile wallet</small></span></button>
+      <button class="method" onclick="choose('Nagad')"><span class="mi">◈</span><span><strong>Nagad</strong><small>Mobile wallet</small></span></button>
+      <button class="method" onclick="choose('Rocket')"><span class="mi">✦</span><span><strong>Rocket</strong><small>Mobile wallet</small></span></button>
+      <button class="method" onclick="choose('Bank')"><span class="mi">▤</span><span><strong>Bank</strong><small>Bank transfer</small></span></button>
+      <button class="method" onclick="choose('Crypto')"><span class="mi">₿</span><span><strong>Crypto</strong><small>Wallet address</small></span></button>
+    </div>
+  </section>
+</div>
+
+<!-- TRANSFER FORM -->
+<div class="modalbg" id="form">
+  <section class="modal">
+    <div class="mh">
+      <h2 id="formTitle">bKash transfer</h2>
+      <button class="x" onclick="closeM('form')">×</button>
+    </div>
+    <p id="formSub">Enter recipient details and amount.</p>
+    <div id="fields"></div>
+    <div class="summary" id="payout">
+      <div class="sumrow"><span>Transfer amount</span><strong id="amountView">৳0.00</strong></div>
+      <div class="sumrow"><span>Estimated fee</span><strong>৳0.00</strong></div>
+      <div class="sumrow total"><span>Recipient receives</span><strong id="receiveView">৳0.00</strong></div>
+    </div>
+    <div class="help">Payout estimate only.</div>
+    <button class="primary wide" onclick="continueReview()">Continue</button>
+  </section>
+</div>
+
+<!-- CONFIRM -->
+<div class="modalbg" id="confirm">
+  <section class="modal">
+    <div class="mh">
+      <h2>Confirm transfer</h2>
+      <button class="x" onclick="closeM('confirm')">×</button>
+    </div>
+    <p>Review the details before submitting your request.</p>
+    <div class="summary" id="confirmDetails"></div>
+    <button class="primary wide" onclick="submitRequest()">Confirm &amp; send request</button>
+    <button class="secondary wide" onclick="closeM('confirm')">Go back</button>
+  </section>
+</div>
+
+<!-- REVIEW -->
+<div class="modalbg" id="review">
+  <section class="modal">
+    <div class="mh">
+      <h2 id="reviewTitle">Request under review</h2>
+      <button class="x" onclick="closeM('review')">×</button>
+    </div>
+    <p id="reviewDesc">Your withdrawal request is under review due to unusually high transaction activity.</p>
+    <div class="notice">
+      <b id="reviewState">PROCESSING</b>
+      <div class="timer" id="timer">01:00:00</div>
+      <div class="progress"><span id="progress"></span></div>
+      Estimated review window · 1 hour
+    </div>
+    <div class="summary" id="reviewDetails"></div>
+    <div class="help">No funds are transferred while this request is under review.</div>
+    <button class="primary wide" onclick="closeM('review')">Close</button>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let methodName = 'bKash';
+let data = {};
+let timer = null;
+let start = 0;
+
+function go(id,button){
+  document.querySelectorAll('.page').forEach(function(page){
+    page.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.nav button').forEach(function(btn){
+    btn.classList.remove('active');
+  });
+
+  if(button) button.classList.add('active');
+}
+
+function isAccountBanned(){
+  return localStorage.getItem('obsidianBanned') === 'true';
+}
+
+function openMethods(){
+  if(isAccountBanned()){
+    toast('Account banned. Withdrawals are unavailable.');
+    return;
+  }
+  document.getElementById('methods').classList.add('show');
+}
+
+function setBannedState(){
+  localStorage.setItem('obsidianBanned','true');
+  clearInterval(timer);
+
+  document.getElementById('reviewTitle').textContent = 'Account banned';
+  document.getElementById('reviewState').textContent = 'ACCOUNT BANNED';
+  document.getElementById('reviewDesc').textContent =
+    'Your account has been banned due to unusually high transaction activity. Your withdrawal was not completed.';
+  document.getElementById('timer').textContent = 'ACCOUNT BANNED';
+  document.getElementById('progress').style.width = '100%';
+
+  const panel = document.getElementById('accountStatusPanel');
+  if(panel) panel.style.display = 'block';
+  const heading = document.getElementById('accountStatusHeading');
+  const message = document.getElementById('accountStatusText');
+  if(heading) heading.textContent = 'ACCOUNT BANNED';
+  if(message) message.textContent =
+    'Your account was restricted due to unusually high transaction activity. Withdrawals are unavailable.';
+}
+
+function go(id,button){
+  document.querySelectorAll('.page').forEach(function(page){
+    page.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.nav button').forEach(function(btn){
+    btn.classList.remove('active');
+  });
+
+  if(button) button.classList.add('active');
+}
+
+function closeM(id){
+  document.getElementById(id).classList.remove('show');
+}
+
+function input(label,id,placeholder,type='text',attrs=''){
+  return `<label class="field" for="${id}">${label}</label>
+  <input class="input" id="${id}" type="${type}" placeholder="${placeholder}" ${attrs}>`;
+}
+
+function choose(method){
+  if(isAccountBanned()){
+    toast('Account banned. Withdrawals are unavailable.');
+    return;
+  }
+
+  methodName = method;
+  closeM('methods');
+
+  document.getElementById('formTitle').textContent = method + ' transfer';
+  document.getElementById('formSub').textContent = 'Enter recipient details and amount.';
+
+  let fields = '';
+
+  if(method === 'Bank'){
+    fields += input('Bank name','bank','Enter bank name');
+    fields += input('Account holder name','holder','Full name');
+    fields += input('Account number','account','Bank account number');
+  }else if(method === 'Crypto'){
+    fields += input('Network','network','e.g. TRC20');
+    fields += input('Wallet address','wallet','Recipient wallet address');
+  }else{
+    fields += input(method + ' number','phone','01XXXXXXXXX','tel','inputmode="numeric" maxlength="11"');
+  }
+
+  fields += input('Amount (BDT)','amount','Enter amount in ৳','number','min="1" step="1"');
+
+  document.getElementById('fields').innerHTML = fields;
+  document.getElementById('payout').style.display = method === 'Crypto' ? 'none' : 'block';
+
+  document.getElementById('amount').addEventListener('input',calc);
+
+  calc();
+  document.getElementById('form').classList.add('show');
+}
+
+function calc(){
+  const amount = Number(document.getElementById('amount')?.value || 0);
+
+  const formatted = '৳' + amount.toLocaleString('en-BD',{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+
+  document.getElementById('amountView').textContent = formatted;
+  document.getElementById('receiveView').textContent = formatted;
+}
+
+function safe(value){
+  return String(value || '').replace(/[&<>"']/g,function(c){
+    return {
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c];
+  });
+}
+
+function escapeHtml(value){
+  return safe(value);
+}
+
+function mask(value){
+  value = String(value || '');
+  return value.length < 5 ? '••••' : value.slice(0,2) + '••••' + value.slice(-3);
+}
+
+function continueReview(){
+  if(isAccountBanned()){
+    toast('Account banned. Withdrawals are unavailable.');
+    return;
+  }
+
+  const amount = Number(document.getElementById('amount').value || 0);
+
+  if(amount <= 0){
+    toast('Enter a valid amount');
+    return;
+  }
+
+  data = {method:methodName,amount:amount};
+
+  if(methodName === 'Bank'){
+    data.bank = document.getElementById('bank').value.trim();
+    data.holder = document.getElementById('holder').value.trim();
+    data.account = document.getElementById('account').value.trim();
+
+    if(!data.bank || !data.holder || !data.account){
+      toast('Complete all bank details');
+      return;
+    }
+  }else if(methodName === 'Crypto'){
+    data.network = document.getElementById('network').value.trim();
+    data.wallet = document.getElementById('wallet').value.trim();
+
+    if(!data.network || !data.wallet){
+      toast('Complete wallet details');
+      return;
+    }
+  }else{
+    data.phone = document.getElementById('phone').value.trim();
+
+    if(!/^01[0-9]{9}$/.test(data.phone)){
+      toast('Enter a valid 11-digit number');
+      return;
+    }
+  }
+
+  closeM('form');
+
+  let rows = `<div class="sumrow"><span>Method</span><strong>${safe(data.method)}</strong></div>`;
+
+  if(data.bank){
+    rows += `
+      <div class="sumrow"><span>Bank</span><strong>${safe(data.bank)}</strong></div>
+      <div class="sumrow"><span>Account holder</span><strong>${safe(data.holder)}</strong></div>
+      <div class="sumrow"><span>Account number</span><strong>${mask(data.account)}</strong></div>
+    `;
+  }
+
+  if(data.phone){
+    rows += `<div class="sumrow"><span>Recipient number</span><strong>${mask(data.phone)}</strong></div>`;
+  }
+
+  if(data.wallet){
+    rows += `
+      <div class="sumrow"><span>Network</span><strong>${safe(data.network)}</strong></div>
+      <div class="sumrow"><span>Wallet address</span><strong>${mask(data.wallet)}</strong></div>
+    `;
+  }
+
+  rows += `<div class="sumrow total"><span>Amount</span><strong>৳${amount.toLocaleString('en-BD',{minimumFractionDigits:2})}</strong></div>`;
+
+  document.getElementById('confirmDetails').innerHTML = rows;
+  document.getElementById('confirm').classList.add('show');
+}
+
+function submitRequest(){
+  if(isAccountBanned()){
+    toast('Account banned. Withdrawals are unavailable.');
+    closeM('confirm');
+    return;
+  }
+
+  closeM('confirm');
+
+  start = Date.now();
+  localStorage.setItem('obsidianStart',String(start));
+  localStorage.setItem('obsidianRequest',JSON.stringify({
+    method:data.method || 'Transfer',
+    amount:Number(data.amount || 0)
+  }));
+  localStorage.removeItem('obsidianBanned');
+
+  showReview();
+  document.getElementById('reviewTitle').textContent = 'Withdrawal under review';
+  document.getElementById('reviewState').textContent = 'UNDER REVIEW';
+  document.getElementById('reviewDesc').textContent =
+    'Due to unusually high transaction activity, your withdrawal request has been placed under review. Your account will be banned when the one-hour review timer ends. The withdrawal will not be completed.';
+  document.getElementById('review').classList.add('show');
+  runTimer();
+}
+
+function showReview(){
+  document.getElementById('reviewDetails').innerHTML = `
+    <div class="sumrow"><span>Method</span><strong>${safe(data.method || 'Transfer')}</strong></div>
+    <div class="sumrow total"><span>Requested amount</span><strong>৳${Number(data.amount || 0).toLocaleString('en-BD',{minimumFractionDigits:2})}</strong></div>
+  `;
+}
+
+function runTimer(){
+  clearInterval(timer);
+
+  function tick(){
+    const storedStart = Number(localStorage.getItem('obsidianStart')) || start;
+    const elapsed = Math.max(0,Date.now() - storedStart);
+    const left = Math.max(0,3600000 - elapsed);
+
+    const h = Math.floor(left / 3600000);
+    const m = Math.floor(left % 3600000 / 60000);
+    const s = Math.floor(left % 60000 / 1000);
+
+    document.getElementById('timer').textContent =
+      [h,m,s].map(function(x){
+        return String(x).padStart(2,'0');
+      }).join(':');
+
+    document.getElementById('progress').style.width =
+      Math.min(100,elapsed / 3600000 * 100) + '%';
+
+    if(left <= 0){
+      setBannedState();
+    }
+  }
+
+  tick();
+  if(!isAccountBanned()) timer = setInterval(tick,1000);
+}
+
+function toast(message){
+  const element = document.getElementById('toast');
+  element.textContent = message;
+  element.style.display = 'block';
+
+  setTimeout(function(){
+    element.style.display = 'none';
+  },2300);
+}
+
+const savedRequest = localStorage.getItem('obsidianRequest');
+if(savedRequest){
+  try{ data = JSON.parse(savedRequest) || {}; }catch(error){ data = {}; }
+}
+
+const old = Number(localStorage.getItem('obsidianStart'));
+if(isAccountBanned()){
+  showReview();
+  setBannedState();
+}else if(old){
+  start = old;
+  showReview();
+  document.getElementById('review').classList.add('show');
+  document.getElementById('reviewTitle').textContent = 'Withdrawal under review';
+  document.getElementById('reviewState').textContent = 'UNDER REVIEW';
+  document.getElementById('reviewDesc').textContent =
+    'Due to unusually high transaction activity, your withdrawal request is under review. The withdrawal will not be completed.';
+  runTimer();
+}
+</script>
+
+</body>
+</html>e withdrawal will not be completed.';
+  runTimer();
+}
+</script>
+
+</body>
+</html>
