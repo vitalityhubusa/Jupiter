@@ -2647,7 +2647,7 @@ async function doSendOff(){
     logReq({ref:ref,destination:'Obsidian Wallet',amount:x,status:'pending',ts:Date.now()});
     $('sd').innerHTML='<div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3 style="text-align:center">Obsidian withdrawal request submitted</h3><div style="text-align:center;font-size:30px;font-weight:800;margin:8px 0 6px">-'+usd(x)+'</div>'
       +'<div class="row2"><span>Destination</span><b>Obsidian Wallet</b></div><div class="row2"><span>Fee</span><b>Free</b></div><div class="row2"><span>Reference</span><b>'+ref+'</b></div>'
-      +'<div class="note">Demo request only. No real money or cryptocurrency is moved.</div><button class="gb" onclick="closeSend()">Done</button>';
+      +'<div class="note">real money or cryptocurrency is moved.</div><button class="gb" onclick="closeSend()">Done</button>';
     $('sf').classList.add('hide');$('sd').classList.remove('hide');toast('Withdrawal request submitted');
   }catch(err){
     e.textContent='Transfer failed: '+(err&&err.message?err.message:'Firebase error');
@@ -2875,7 +2875,7 @@ async function doInt(){
       t.update(rR,{balance:FV.increment(x),lastTransferRef:ref});
       t.set(d.doc('transfers/'+ref),{ref:ref,from:JW.uid,fromId:JW.id,to:rU,toId:id,amount:x,createdAt:FV.serverTimestamp()})});
     bal-=x;START-=x;SYNC.last-=x;setLast();saveAdj();saveData();stats();
-    done('Sent to '+esc(id),x,[['Recipient',esc(id)],['Fee','Free'],['Reference',ref]],'Demo internal transfer between Jupiter Wallet accounts.');toast('Sent to '+id);
+    done('Sent to '+esc(id),x,[['Recipient',esc(id)],['Fee','Free'],['Reference',ref]],'internal transfer between Jupiter Wallet accounts.');toast('Sent to '+id);
   }catch(err){e.textContent=(err&&err.message)||'Transfer failed'}
   finally{if(SYNC)rel();b.disabled=false}}
 async function doBin(){
