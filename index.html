@@ -7,6 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#050607">
 <title>Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -172,6 +173,60 @@ body.loading .bal i{color:transparent}
 .gb{width:100%;height:54px;border:0;border-radius:27px;margin-top:12px;font-size:18px;font-weight:700;background:#a6f27c;color:#111}
 .row2{display:flex;justify-content:space-between;font-size:13.5px;color:#8b9094;margin-top:10px}.row2 b{color:#fff;font-weight:600}
 .ok{width:68px;height:68px;border-radius:50%;background:#33d46f;margin:6px auto 14px;display:flex;align-items:center;justify-content:center}
+/* ===== Jupiter Wallet: landing + auth ===== */
+body.guest #app{display:none}
+body:not(.guest) #land,body:not(.guest) #jwm{display:none!important}
+body.boot #land,body.boot #jwm{visibility:hidden}
+#land{position:fixed;inset:0;z-index:30;overflow-y:auto;overflow-x:hidden;background:#050a0d;color:#eef3f1;font:16px/1.55 -apple-system,"Inter","Segoe UI",Roboto,sans-serif;-webkit-user-select:text;user-select:text;scroll-behavior:smooth}
+#land::before{content:"";position:absolute;inset:0 0 auto;height:680px;background:radial-gradient(70% 90% at 82% 0,rgba(26,120,98,.7),transparent 70%),radial-gradient(50% 60% at 0 10%,rgba(20,90,80,.45),transparent 70%);pointer-events:none}
+#land h1,#land h2,#land h3,#jwm h2{font-family:Sora,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.02em;line-height:1.1}
+#land .lw{position:relative;max-width:1080px;margin:0 auto;padding:0 22px}
+#land .lt{position:relative;text-align:center;font-size:11px;color:#9aa4a1;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+#land .ln{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+#land .lg{display:flex;align-items:center;gap:10px;font:700 18px Sora,sans-serif}
+#land .lg i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 210deg,#a6f27c,#1a7862,#a58cf0,#a6f27c)}
+#land .lc{display:flex;gap:10px;flex-wrap:wrap}
+#land .lb,#jwb{border:0;border-radius:24px;height:46px;padding:0 24px;font-weight:700;font-size:15px;font-family:inherit;cursor:pointer;background:#a6f27c;color:#0a120d;transition:transform .12s}
+#land .lb:active,#jwb:active{transform:scale(.97)}
+#land .lb.g{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14)}
+#land .lh{display:grid;gap:44px;padding:40px 0 72px;align-items:center}
+#land .lh h1{font-size:clamp(38px,7.4vw,66px);font-weight:800}
+#land .lh p{color:#a9b4b0;font-size:18px;max-width:32em;margin:20px 0 28px}
+#land .lm{margin-top:22px;font-size:13px;color:#7f8b87}
+#land .ph{width:min(330px,100%);margin:0 auto;border-radius:36px;padding:20px 18px;background:linear-gradient(180deg,#0b1d20,#07090b);border:1px solid rgba(255,255,255,.1);box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 90px rgba(26,120,98,.35)}
+#land .pu{display:flex;align-items:center;gap:10px;font-weight:600}
+#land .pu i{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#a58cf0,#8f78e6)}
+#land .pb{font:800 38px Sora,sans-serif;margin-top:22px;letter-spacing:-.02em}
+#land .pb s{text-decoration:none;color:#7f8b87}
+#land .pg{color:#a6f27c;font-size:14px;font-weight:600;margin-top:2px}
+#land .pa{display:flex;gap:8px;margin:20px 0}
+#land .pa span{flex:1;text-align:center;padding:11px 0;border-radius:16px;background:rgba(255,255,255,.07);font-size:13px;font-weight:600}
+#land .pa span:last-child{background:#a6f27c;color:#0a120d}
+#land .pr{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid rgba(255,255,255,.06);font-size:15px}
+#land .pr b{font-weight:700}#land .pr em{font-style:normal;font-size:13px}
+#land .up{color:#a6f27c}#land .dn{color:#ef6f78}
+#land .lf{display:grid;gap:30px;padding:56px 0;border-top:1px solid rgba(255,255,255,.07)}
+#land .lf h3{font-size:21px;margin-bottom:8px}#land .lf p,#land .ls p{color:#a9b4b0;font-size:15.5px}
+#land .lf div{padding-top:18px;border-top:2px solid #a6f27c}
+#land .ls{padding:56px 0;border-top:1px solid rgba(255,255,255,.07)}
+#land .ls h2{font-size:clamp(28px,5vw,40px);margin-bottom:28px}
+#land .ls ol{display:grid;gap:22px;list-style:none;counter-reset:s}
+#land .ls li{counter-increment:s;padding-left:54px;position:relative}
+#land .ls li::before{content:counter(s);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;border:1px solid rgba(166,242,124,.5);color:#a6f27c;display:flex;align-items:center;justify-content:center;font-weight:700}
+#land .ls li b{display:block;font-size:18px}
+#land .lz{padding:30px 0 46px;border-top:1px solid rgba(255,255,255,.07);font-size:13px;color:#7f8b87;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(min-width:860px){#land .lh{grid-template-columns:1.15fr .85fr}#land .lf{grid-template-columns:repeat(3,1fr)}#land .ls ol{grid-template-columns:repeat(3,1fr)}}
+#jwm{display:none;position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:20px;-webkit-user-select:text;user-select:text;font-family:-apple-system,"Inter","Segoe UI",Roboto,sans-serif}
+#jwm.on{display:flex}
+#jwm .jc{width:100%;max-width:400px;background:#0e1114;border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:26px 22px;color:#fff}
+#jwm h2{font-size:26px;margin-bottom:16px}
+#jwm label{display:block;font-size:13px;color:#9aa4a1;margin-top:12px}
+#jwm input{display:block;width:100%;height:50px;margin-top:6px;padding:0 14px;border-radius:14px;border:1px solid #2b2c30;background:#17191d;color:#fff;font-size:16px;font-family:inherit;outline:0;-webkit-user-select:text;user-select:text}
+#jwm input:focus{border-color:#a6f27c}
+#jwerr{min-height:20px;margin:12px 0 4px;color:#ef6f78;font-size:13.5px}
+#jwb{width:100%}#jwb:disabled{opacity:.6}
+#jwsw{margin-top:14px;text-align:center;font-size:14px;color:#9aa4a1}#jwsw a{color:#a6f27c;cursor:pointer;font-weight:600}
+#land button:focus-visible,#jwm :focus-visible{outline:2px solid #a6f27c;outline-offset:2px}
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -181,9 +236,43 @@ body.loading .bal i{color:transparent}
 
 </head>
 
-<body>
+<body class="boot guest">
+<div id="land">
+<div class="lt">DEMO USE</div>
+<div class="lw">
+<div class="ln"><div class="lg"><i></i>Jupiter Wallet</div><div class="lc"><button class="lb g" onclick="openAuth('login')">Sign in</button><button class="lb" onclick="openAuth('reg')">Create account</button></div></div>
+<section class="lh"><div>
+<h1>Send money by User ID. Trade live markets.</h1>
+<p>One wallet with a User ID of your own. Move balance to anyone in seconds, trade live-priced tokens, and withdraw to your offline wallet or Binance.</p>
+<div class="lc"><button class="lb" onclick="openAuth('reg')">Create free account</button><button class="lb g" onclick="openAuth('login')">Sign in</button></div>
+<div class="lm">Free internal transfers · Live market prices · Offline wallet</div>
+</div>
+<div class="ph"><div class="pu"><i></i>alex_92</div><div class="pb">$2,480<s>.50</s></div><div class="pg">+$124.10 today</div>
+<div class="pa"><span>Deposit</span><span>Send</span><span>Trade</span></div>
+<div class="pr"><b>SOL</b><span>$148.20 <em class="up">+2.4%</em></span></div>
+<div class="pr"><b>JUP</b><span>$0.92 <em class="up">+5.1%</em></span></div>
+<div class="pr"><b>BNB</b><span>$612.40 <em class="dn">-0.8%</em></span></div></div>
+</section>
+<section class="lf">
+<div><h3>Send by User ID</h3><p>Every account has its own User ID. Enter it, enter an amount, and the balance moves straight away. No fee.</p></div>
+<div><h3>Trade live prices</h3><p>Buy and sell tokens at live market prices, with open orders and your profit and loss in one place.</p></div>
+<div><h3>Withdraw your way</h3><p>Cash out to your offline wallet, to another account by User ID, or to Binance with the fee shown first.</p></div>
+</section>
+<section class="ls"><h2>Up and running in three steps</h2>
+<ol><li><b>Create your account</b><p>Pick a User ID, add your email and set a password.</p></li>
+<li><b>Add balance</b><p>Deposit with a redeem code and see it in your wallet at once.</p></li>
+<li><b>Send, trade or withdraw</b><p>Use your User ID to move money, or open the markets.</p></li></ol></section>
+<div class="lz"><span>Jupiter Wallet</span><span>Demo use. Balances and trades on this site are for demonstration.</span></div>
+</div></div>
+<div id="jwm"><div class="jc"><h2 id="jwt"></h2>
+<label>User ID<input id="jwu" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="20"></label>
+<label id="jwe">Email<input id="jwem" type="email" autocomplete="email" autocapitalize="off"></label>
+<label>Password<input id="jwp" type="password"></label>
+<div id="jwerr" role="alert"></div><button id="jwb" onclick="authGo()"></button><div id="jwsw"></div></div></div>
+
 
 <div id="app">
+<div class="demo">DEMO USE</div>
 <svg id="stars" viewBox="0 0 400 260" preserveAspectRatio="none"></svg>
   <div id="pull">
 <div class="spin" id="spin"></div>
@@ -195,7 +284,7 @@ body.loading .bal i{color:transparent}
 
 <div class="left">
 
-<div class="avatar">👭</div>
+<div class="avatar" onclick="openAcct()" style="cursor:pointer">👭</div>
 
 <div class="pill name" onclick="changeWalletName()" style="cursor:pointer">
 <span id="walletName">Saimon</span>
@@ -404,7 +493,7 @@ Tokens
 <header>
 
 <div class="left">
-<div class="avatar">👭</div>
+<div class="avatar" onclick="openAcct()" style="cursor:pointer">👭</div>
 </div>
 
 <div class="pill icons">
@@ -593,7 +682,7 @@ Hot Stocks
 <header>
 
 <div class="left">
-<div class="avatar">📈</div>
+<div class="avatar" onclick="openAcct()" style="cursor:pointer">📈</div>
 <div class="ttl">Trade</div>
 </div>
 </header>
@@ -740,13 +829,14 @@ Max
 
 <div id="send" class="hide"><div class="bd" onclick="closeSend()"></div>
  <div class="sh" id="sf">
-  <div style="display:flex;align-items:center;justify-content:space-between"><h3>Withdraw · min $100</h3><div class="sb" id="sbin" onclick="togBin()">Obsidian</div></div>
+  <div style="display:flex;align-items:center;justify-content:space-between"><h3 id="sth">Withdraw · min $100</h3><div class="sb" id="sbin" onclick="togBin()">Obsidian</div></div>
   <div class="net" id="snet" ><span id="snl"></span><span>▾</span></div>
   <div class="nm hide" id="nm"></div>
   <div class="inp" style="margin-top:12px"><input id="sa" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" style="font-size:16px;height:48px" oninput="sfee()"><button onclick="pasteA()">Paste</button></div>
   <div class="inp"><span>$</span><input id="sm" type="text" inputmode="decimal" placeholder="0.00" oninput="sfee()"><button onclick="maxS()">Max</button></div>
   <div class="row2"><span>Available</span><b id="sav"></b></div>
   <div class="row2"><span>Fee</span><b id="sfe"></b></div>
+  <div class="row2 hide" id="srw"><span>You receive</span><b id="srx"></b></div>
   <div class="err" id="ser"></div>
   <button class="gb" onclick="doSend()">Withdraw</button>
  </div>
@@ -1048,8 +1138,9 @@ tt=null;
    LOCAL STORAGE
 ========================= */
 
-var STORAGE_KEY='wallet_demo_persistent_v4';
-var DAILY_PNL_KEY='wallet_demo_daily_pnl_v1';
+var UK=(function(){try{return '_'+(localStorage.getItem('jw_uid')||'')}catch(e){return ''}})();
+var STORAGE_KEY='wallet_demo_persistent_v4'+UK;
+var DAILY_PNL_KEY='wallet_demo_daily_pnl_v1'+UK;
 var dailyPnl={start:null,date:null,rollover:null};
 function dayKey(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function nextDayKey(d){d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);return dayKey(d)}
@@ -2453,14 +2544,14 @@ function confirmT(){var x=parseFloat($('amt').value),a=avail(),s=cur.sym,t=cur,p
   if(!(x>0)){toast('Enter an amount');return}if(x>a+.005){toast('Amount is more than available');return}
   var R=Math.max(t.liq/2,1);
   if(mode==='buy'){x=Math.min(x,bal);var im=x/R;bal-=x;var o=pos[s]||(pos[s]={qty:0,cost:0});o.qty+=x/(p*(1+im));o.cost+=x;t.p=p*(1+im)*(1+im);bump(t,p);if(t.volatile){t.volatileEntryAt=Date.now();t.volatileDipUntil=t.volatileEntryAt+30000;t.volatilePumpUntil=t.volatileEntryAt+120000;t.volatileCrashAt=t.volatileEntryAt+150000+rnd(0,30000);t.volatileTarget=rnd(300,500);t.volatilePhase='dip';t.volatileCrashed=false;t.volatileEvent=Math.floor(Math.random()*12);t.volatileEventDuration=rnd(45000,150000);t.volatileEventAt=0}toast('Bought '+usd(x)+' of '+s)}
-  else{var v=val(s),f=Math.min(1,x/v),sv=v*f,im2=sv/R,pr=sv/(1+im2),pnl=pr-pos[s].cost*f;bal+=pr;pos[s].qty*=1-f;pos[s].cost*=1-f;if(f>=.999)delete pos[s];t.p=p/((1+im2)*(1+im2));bump(t,p);toast('Sold · '+sg(pnl));flash()}
+  else{var v=val(s),f=Math.min(1,x/v),sv=v*f,im2=sv/R,pr=sv/(1+im2),pnl=pr-pos[s].cost*f;if(pnl<0&&jwWin()){pr=pos[s].cost*f*(1+rnd(.01,.06));pnl=pr-pos[s].cost*f}bal+=pr;pos[s].qty*=1-f;pos[s].cost*=1-f;if(f>=.999)delete pos[s];t.p=p/((1+im2)*(1+im2));bump(t,p);toast('Sold · '+sg(pnl));flash()}
   closeSheet();renderOrders();stats();saveData();updUI()}
-function closeP(s){var t=tk(s),v=val(s),im=v/Math.max(t.liq/2,1),pr=v/(1+im),pnl=pr-pos[s].cost,p=t.p;
+function closeP(s){var t=tk(s),v=val(s),im=v/Math.max(t.liq/2,1),pr=v/(1+im),pnl=pr-pos[s].cost,p=t.p;if(pnl<0&&jwWin()){pr=pos[s].cost*(1+rnd(.01,.06));pnl=pr-pos[s].cost}
   bal+=pr;delete pos[s];t.p=p/((1+im)*(1+im));bump(t,p);toast('Order closed · '+sg(pnl));flash();renderOrders();stats();saveData();updUI()}
 
 var _sd=saveData;saveData=function(){if(window.__ns)return;clearTimeout(_sdT);_sdT=setTimeout(_sd,800)};
 SO.push(['reset','Reset account']);var _ss=setSort;
-setSort=function(k){if(k==='reset'){$('fmenu').classList.add('hide');if(confirm('Reset account to $0.00?')){window.__ns=1;try{localStorage.removeItem(STORAGE_KEY);localStorage.removeItem('wallet_demo_adj_v1');localStorage.removeItem('wallet_demo_adj_v2');localStorage.removeItem(DAILY_PNL_KEY);localStorage.removeItem('pw_queue');localStorage.removeItem('pw_used')}catch(e){}location.reload()}return}_ss(k)};renderMenu();
+setSort=function(k){if(k==='reset'){$('fmenu').classList.add('hide');if(confirm('Reset account to $0.00?')){window.__ns=1;try{localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(ADJ);localStorage.removeItem('jw_last'+UK);localStorage.removeItem(DAILY_PNL_KEY);localStorage.removeItem(QK);localStorage.removeItem(RK)}catch(e){}jwReset(function(){location.reload()})}return}_ss(k)};renderMenu();
 setInterval(function(){toks.forEach(step);updUI();saveData()},TICK);
 
 
@@ -2506,20 +2597,14 @@ var _u2=updUI;updUI=function(){_u2();updHome();if(cur&&cur.real)$('dhold').textC
 pollB();pollG();setInterval(pollB,3000);setInterval(pollG,60000);
 
 /* Withdraw (Binance only) + Redeem codes */
-var MINW=100,ADJ='wallet_demo_adj_v2',QK='pw_queue';
+var MINW=100,ADJ='wallet_demo_adj_v2'+UK,QK='pw_queue'+UK;
 /* Shared Firebase transfer: Jupiter -> Obsidian */
 var fbDb=null,fbReady=null;
 function fbInit(){
-  if(fbReady)return fbReady;
-  fbReady=(async function(){
-    if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
-    await firebase.auth().signInAnonymously();
-    fbDb=firebase.firestore();
-    return fbDb;
-  })();
-  return fbReady;
+  if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+  if(!firebase.auth().currentUser)return Promise.reject(new Error('Please sign in again'));
+  fbDb=firebase.firestore();return Promise.resolve(fbDb);
 }
-fbInit().catch(function(e){console.warn('Firebase connection:',e);});
 function logReq(r){
   var q=[];try{q=JSON.parse(localStorage.getItem(QK)||'[]')}catch(e){}
   q.push(r);try{localStorage.setItem(QK,JSON.stringify(q))}catch(e){}
@@ -2541,7 +2626,7 @@ function closeSend(){$('send').classList.add('hide');document.body.classList.rem
 function pasteA(){$('ser').textContent='Destination is fixed to your Obsidian wallet.'}
 function maxS(){$('sm').value=Math.max(0,Math.floor(bal*100)/100).toFixed(2)}
 function shortA(a){return a.length>16?a.slice(0,6)+'…'+a.slice(-6):a}
-async function doSend(){
+async function doSendOff(){
   var x=parseFloat($('sm').value),e=$('ser');
   if(!(x>0)){e.textContent='Enter an amount';return}
   if(x<MINW){e.textContent='Minimum withdrawal is '+usd(MINW);return}
@@ -2554,7 +2639,7 @@ async function doSend(){
     x=Math.min(x,bal);
     var ref='JUP-'+Date.now()+'-'+Math.random().toString(36).slice(2,8).toUpperCase();
     await db.collection('obsidian_transfers').doc(ref).set({
-      ref:ref,source:'JupiterWallet',destination:'ObsidianWallet',
+      ref:ref,source:'JupiterWallet',uid:JW.uid,userId:JW.id,destination:'ObsidianWallet',
       amount:x,currency:'USD',status:'sent',
       createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
@@ -2570,7 +2655,7 @@ async function doSend(){
 }
 
 /* Redeem Code: YNS + any positive amount, e.g. YNS1000 */
-var RK='pw_used';
+var RK='pw_used'+UK;
 function usedCodes(){try{return JSON.parse(localStorage.getItem(RK)||'[]')}catch(e){return[]}}
 function openRedeem(){var h='<h3>Deposit · Redeem Code</h3><div class="note" style="margin-top:10px">Enter Your Redeem Code.</div>'
   +'<div class="inp" style="margin-top:12px"><input id="rc" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Enter Code" style="font-size:18px;height:48px"></div>'
@@ -2583,7 +2668,7 @@ function doRedeem(){var c=($('rc').value||'').trim().toUpperCase(),m=/^YNS(\d+(?
 document.querySelector('.cta .snd').onclick=openSend;
 
 /* Wallet Name Editor */
-var WALLET_NAME_KEY = 'jupiter_wallet_custom_name';
+var WALLET_NAME_KEY = 'jupiter_wallet_custom_name'+UK;
 
 function loadWalletName(){
   var savedName = localStorage.getItem(WALLET_NAME_KEY);
@@ -2620,15 +2705,174 @@ stats();
 </script>
 
 
-</body>
-</html>name updated!');
+<script>
+/* ===== Jupiter Wallet: accounts, ID transfers, withdraw methods, admin ===== */
+(function(){
+if(typeof firebase==='undefined'){document.body.classList.remove('boot');window.openAuth=function(){alert('Firebase did not load. Open this site from your hosting (https) with internet access, not from the Claude preview or a blocked network.')};window.openAcct=function(){};return}
+var JW=window.JW={uid:'',id:'',email:'',profitPct:0,admin:false},SYNC=null,unsub=null,REG=0,mode='login',M='off',jwU=[];
+if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+var FV=firebase.firestore.FieldValue,LK='jw_last'+UK,BINFEE=0.10;
+function db(){return firebase.firestore()}
+function em(id){return id.toLowerCase()+'@users.jupiterwallet.app'}
+function idOf(u){return (u.email||'').split('@')[0]}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function rid(p){return p+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,8).toUpperCase()}
+function view(a){document.body.classList.remove('boot');document.body.classList.toggle('guest',!a)}
+function setLast(){try{localStorage.setItem(LK,SYNC.last)}catch(e){}}
+window.jwWin=function(){return Math.random()*100<JW.profitPct};
+
+/* ---- balance sync (delta based, so incoming transfers never get lost) ---- */
+function pushBal(){
+  if(!SYNC||SYNC.busy||!isFinite(bal))return Promise.resolve();
+  var d=Math.round((bal-SYNC.last)*1e6)/1e6;if(!d)return Promise.resolve();
+  SYNC.last+=d;setLast();
+  return SYNC.ref.update({balance:FV.increment(d)}).catch(function(){SYNC.last-=d;setLast()});
 }
+function rel(){SYNC.busy=0;if(SYNC.q){var q=SYNC.q;SYNC.q=null;onDoc(q[0],q[1])}}
+function onDoc(d,ref){
+  JW.profitPct=Math.min(100,Math.max(0,Number(d.profitPct)||0));JW.email=d.email||'';
+  if(SYNC&&SYNC.busy){SYNC.q=[d,ref];return}
+  var r=Number(d.balance)||0,L,first=!SYNC;
+  if(first){SYNC={ref:ref,last:0,busy:0};L=parseFloat(localStorage.getItem(LK));
+    if(!isFinite(L)){if(bal>.005&&r<.005)L=0;else{L=r;bal=r;START=r;saveAdj()}}}
+  else L=SYNC.last;
+  var dl=r-L;
+  if(Math.abs(dl)>1e-6){bal+=dl;START+=dl;saveAdj();saveData();if(!first&&dl>0)toast('+'+usd(dl)+' received')}
+  SYNC.last=r;setLast();stats();pushBal();
+}
+setInterval(pushBal,1500);
+document.addEventListener('visibilitychange',function(){if(document.hidden)pushBal()});
+window.addEventListener('pagehide',pushBal);
+window.jwReset=function(cb){if(SYNC){SYNC.busy=1;SYNC.ref.update({balance:0}).then(cb,cb)}else cb()};
 
-loadWalletName();
-stats();
+/* ---- auth ---- */
+function mkProfile(uid,id,mail){var b=db().batch(),l=id.toLowerCase();
+  b.set(db().doc('users/'+uid),{uid:uid,userId:l,email:mail,balance:0,profitPct:0,createdAt:FV.serverTimestamp()});
+  b.set(db().doc('handles/'+l),{uid:uid,userId:l});return b.commit()}
+function msg(e){var c=(e&&e.code)||'';
+  if(c==='auth/email-already-in-use')return 'This User ID is already taken';
+  if(/invalid-credential|user-not-found|wrong-password|invalid-email/.test(c))return 'Wrong User ID or password';
+  if(c==='auth/weak-password')return 'Password must be at least 6 characters';
+  if(c==='auth/too-many-requests')return 'Too many attempts. Try again later';
+  if(c==='auth/network-request-failed')return 'No connection. Check your internet';
+  if(c==='auth/operation-not-allowed')return 'Email/Password sign-in is not enabled in Firebase';
+  return (e&&e.message)||'Something went wrong'}
+function paint(){var r=mode==='reg';$('jwt').textContent=r?'Create your account':'Welcome back';$('jwe').classList.toggle('hide',!r);$('jwb').textContent=r?'Create account':'Sign in';
+  $('jwsw').innerHTML=r?'Have an account? <a onclick="openAuth(\'login\')">Sign in</a>':'New here? <a onclick="openAuth(\'reg\')">Create account</a>';
+  $('jwp').autocomplete=r?'new-password':'current-password'}
+window.openAuth=function(m){mode=m;$('jwerr').textContent='';$('jwm').classList.add('on');paint();setTimeout(function(){$('jwu').focus()},50)};
+$('jwm').addEventListener('click',function(e){if(e.target===this)this.classList.remove('on')});
+$('jwm').addEventListener('keydown',function(e){if(e.key==='Enter')authGo();if(e.key==='Escape')this.classList.remove('on')});
+window.authGo=async function(){
+  var id=$('jwu').value.trim(),pw=$('jwp').value,mail=$('jwem').value.trim(),r=mode==='reg',err=$('jwerr'),b=$('jwb'),a=firebase.auth();
+  err.textContent='';
+  if(!/^[A-Za-z0-9_]{3,20}$/.test(id)){err.textContent='User ID must be 3–20 letters, numbers or _';return}
+  if(r&&!/^\S+@\S+\.\S+$/.test(mail)){err.textContent='Enter a valid email address';return}
+  if(pw.length<6){err.textContent='Password must be at least 6 characters';return}
+  b.disabled=true;
+  try{
+    if(r){REG=1;var c=await a.createUserWithEmailAndPassword(em(id),pw);
+      try{await mkProfile(c.user.uid,id,mail)}catch(pe){REG=0;await a.signOut();throw new Error('Account created but setup was interrupted. Please sign in.')}
+      REG=0;onUser(a.currentUser)}
+    else await a.signInWithEmailAndPassword(em(id),pw);
+    $('jwm').classList.remove('on');$('jwp').value='';
+  }catch(e){REG=0;err.textContent=msg(e)}
+  b.disabled=false};
+function onUser(u){
+  if(REG)return;
+  if(unsub){unsub();unsub=null}
+  if(!u||u.isAnonymous){SYNC=null;JW.uid='';JW.admin=false;if(u)firebase.auth().signOut();view(false);return}
+  var prev=localStorage.getItem('jw_uid');
+  if(prev!==u.uid){try{
+    if(!prev)['wallet_demo_persistent_v4','wallet_demo_daily_pnl_v1','wallet_demo_adj_v2','pw_queue','pw_used','jupiter_wallet_custom_name'].forEach(function(k){var v=localStorage.getItem(k);if(v!==null)localStorage.setItem(k+'_'+u.uid,v)});
+    localStorage.setItem('jw_uid',u.uid)}catch(e){}
+    location.reload();return}
+  JW.uid=u.uid;JW.id=idOf(u);
+  var r=db().doc('users/'+u.uid);
+  r.get().then(function(s){if(!s.exists&&!REG)return mkProfile(u.uid,JW.id,'')}).catch(function(){});
+  unsub=r.onSnapshot(function(s){if(s.exists)onDoc(s.data(),r)},function(){});
+  db().doc('admins/'+u.uid).get().then(function(s){JW.admin=s.exists}).catch(function(){});
+  if(!localStorage.getItem(WALLET_NAME_KEY))$('walletName').textContent=JW.id;
+  view(true)}
+firebase.auth().onAuthStateChanged(onUser);
 
+/* ---- account + admin sheets (reuse the Deposit sheet container) ---- */
+function sheet(h){$('rsh').innerHTML=h;$('redeem').classList.remove('hide');document.body.classList.add('ov')}
+window.openAcct=function(){if(!JW.uid)return;
+  sheet('<h3>Account</h3><div class="row2"><span>User ID</span><b>'+esc(JW.id)+'</b></div><div class="row2"><span>Email</span><b>'+esc(JW.email||'-')+'</b></div><div class="row2"><span>Balance</span><b>'+usd(bal)+'</b></div>'
+  +(JW.admin?'<button class="gb" onclick="openAdmin()">Admin panel</button>':'')+'<button class="ocb" onclick="jwOut()">Sign out</button><button class="ocb" onclick="closeRedeem()">Close</button>')};
+window.jwOut=function(){pushBal().then(function(){return firebase.auth().signOut()}).then(closeRedeem)};
+window.openAdmin=async function(){
+  sheet('<h3>Admin · Users</h3><div class="inp" style="margin-top:10px"><input id="jwq" placeholder="Search User ID" oninput="jwF()" style="font-size:16px;height:44px;-webkit-user-select:text;user-select:text"></div><div id="jwl" style="max-height:50vh;overflow-y:auto;margin-top:8px">Loading…</div><button class="ocb" onclick="closeRedeem()">Close</button>');
+  try{var s=await db().collection('users').orderBy('createdAt','desc').limit(200).get();jwU=s.docs.map(function(d){return d.data()});jwF()}
+  catch(e){$('jwl').textContent='Could not load users: '+e.message}};
+window.jwF=function(){var q=($('jwq').value||'').toLowerCase();
+  $('jwl').innerHTML=jwU.filter(function(u){return !q||(u.userId||'').indexOf(q)>-1}).map(function(u){
+    return '<div class="row2" style="align-items:center;gap:8px"><span style="flex:1;color:#fff">'+esc(u.userId)+'<br><small style="color:#8b9094">'+usd(Number(u.balance)||0)+'</small></span>'
+    +'<input type="number" min="0" max="100" value="'+(Number(u.profitPct)||0)+'" id="pp_'+esc(u.uid)+'" style="width:64px;height:36px;background:#0e0f12;border:1px solid #2b2c30;border-radius:10px;color:#fff;padding:0 8px;font-size:16px;-webkit-user-select:text;user-select:text">%'
+    +'<button class="sb" onclick="jwSave(\''+esc(u.uid)+'\')">Save</button></div>'}).join('')||'No users'};
+window.jwSave=function(uid){var v=Math.min(100,Math.max(0,parseFloat($('pp_'+uid).value)||0));
+  db().doc('users/'+uid).update({profitPct:v}).then(function(){toast('Profit % saved')}).catch(function(e){toast('Failed: '+e.message)})};
+
+/* ---- withdraw: Offline wallet (original), Internal by User ID, Binance, rest locked ---- */
+var MT=[['off','Offline wallet'],['int','Internal · User ID'],['bin','Binance'],['x','Bank transfer',1],['x','PayPal',1],['x','On-chain crypto',1]];
+function menu(){$('nm').innerHTML=MT.map(function(m,i){return '<div class="'+(!m[2]&&m[0]===M?'on':'')+'" onclick="pickM('+i+')" style="display:flex;justify-content:space-between'+(m[2]?';opacity:.55':'')+'"><span>'+m[1]+'</span>'+(m[2]?'<span style="font-size:12px;color:#8b9094">Locked</span>':'')+'</div>'}).join('')}
+window.pickM=function(i){var m=MT[i];if(m[2]){toast('Locked in this demo');return}M=m[0];$('nm').classList.add('hide');$('sm').value='';srender()};
+window.srender=function(){var o=M==='off',b=M==='bin',a=$('sa');
+  $('snl').textContent=MT.filter(function(m){return m[0]===M})[0][1];$('sbin').textContent=o?'Obsidian':b?'Binance':'Internal';
+  $('sth').textContent='Withdraw · min '+usd(M==='int'?1:MINW);
+  a.readOnly=o;a.value=o?'Obsidian Wallet':'';a.placeholder=o?'Obsidian Wallet (destination)':b?'Binance ID':'Recipient User ID';a.inputMode='text';
+  $('srw').classList.toggle('hide',!b);menu();sfee()};
+window.sfee=function(){var x=parseFloat($('sm').value)||0,f=M==='bin'?BINFEE:0;
+  $('sfe').textContent=f?usd(f):'Free';$('srx').textContent=usd(Math.max(0,x-f));$('sav').textContent=usd(bal);$('ser').textContent=''};
+window.pasteA=function(){if(M==='off'){$('ser').textContent='Destination is fixed to your Obsidian wallet.';return}
+  if(navigator.clipboard&&navigator.clipboard.readText)navigator.clipboard.readText().then(function(t){$('sa').value=t.trim()}).catch(function(){$('ser').textContent='Paste not allowed. Type the ID instead.'});
+  else $('ser').textContent='Paste not supported. Type the ID instead.'};
+window.openSend=function(){M='off';$('sm').value='';$('sf').classList.remove('hide');$('sd').classList.add('hide');$('nm').classList.add('hide');srender();$('send').classList.remove('hide');document.body.classList.add('ov')};
+document.querySelector('.cta .snd').onclick=window.openSend;
+$('snet').onclick=function(){$('nm').classList.toggle('hide')};
+function done(t,x,rows,note){
+  $('sd').innerHTML='<div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3 style="text-align:center">'+t+'</h3><div style="text-align:center;font-size:30px;font-weight:800;margin:8px 0 6px">-'+usd(x)+'</div>'
+  +rows.map(function(r){return '<div class="row2"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')+'<div class="note">'+note+'</div><button class="gb" onclick="closeSend()">Done</button>';
+  $('sf').classList.add('hide');$('sd').classList.remove('hide')}
+window.doSend=function(){return M==='int'?doInt():M==='bin'?doBin():doSendOff()};
+async function doInt(){
+  var id=($('sa').value||'').trim().toLowerCase(),x=Math.round(parseFloat($('sm').value)*100)/100,e=$('ser'),b=document.querySelector('#sf .gb');
+  if(!id){e.textContent='Enter the recipient User ID';return}
+  if(id===JW.id){e.textContent='You cannot send to your own account';return}
+  if(!(x>=1)){e.textContent='Minimum transfer is '+usd(1);return}
+  if(x>bal+.005){e.textContent='Not enough balance';return}
+  if(!SYNC){e.textContent='Still connecting. Try again in a moment';return}
+  b.disabled=true;e.textContent='Sending…';
+  await pushBal();SYNC.busy=1;
+  try{
+    var d=db(),h=await d.doc('handles/'+id).get();
+    if(!h.exists)throw new Error('User ID not found');
+    var rU=h.data().uid,sR=d.doc('users/'+JW.uid),rR=d.doc('users/'+rU),ref=rid('INT');
+    await d.runTransaction(async function(t){
+      var s=await t.get(sR);if((Number(s.data().balance)||0)<x-.005)throw new Error('Not enough balance');
+      t.update(sR,{balance:FV.increment(-x)});t.update(rR,{balance:FV.increment(x)});
+      t.set(d.doc('transfers/'+ref),{ref:ref,from:JW.uid,fromId:JW.id,to:rU,toId:id,amount:x,createdAt:FV.serverTimestamp()})});
+    bal-=x;START-=x;SYNC.last-=x;setLast();saveAdj();saveData();stats();
+    done('Sent to '+esc(id),x,[['Recipient',esc(id)],['Fee','Free'],['Reference',ref]],'Internal transfer between Jupiter Wallet accounts.');toast('Sent to '+id);
+  }catch(err){e.textContent=(err&&err.message)||'Transfer failed'}
+  rel();b.disabled=false}
+async function doBin(){
+  var id=($('sa').value||'').trim(),x=Math.round(parseFloat($('sm').value)*100)/100,e=$('ser'),b=document.querySelector('#sf .gb');
+  if(!/^[A-Za-z0-9@._-]{4,64}$/.test(id)){e.textContent='Enter a valid Binance ID';return}
+  if(!(x>0)){e.textContent='Enter an amount';return}
+  if(x<MINW){e.textContent='Minimum withdrawal is '+usd(MINW);return}
+  if(x>bal+.005){e.textContent='Not enough balance';return}
+  b.disabled=true;e.textContent='Submitting…';
+  try{
+    var d=await fbInit(),ref=rid('BIN'),net=Math.round((x-BINFEE)*100)/100;
+    await d.collection('binance_withdrawals').doc(ref).set({ref:ref,uid:JW.uid,userId:JW.id,binanceId:id,amount:x,fee:BINFEE,net:net,currency:'USD',status:'pending',createdAt:FV.serverTimestamp()});
+    bal-=x;START-=x;saveAdj();saveData();stats();logReq({ref:ref,destination:'Binance '+id,amount:x,status:'pending',ts:Date.now()});pushBal();
+    done('Binance withdrawal requested',x,[['Binance ID',esc(id)],['Fee',usd(BINFEE)],['You receive',usd(net)],['Reference',ref]],'Demo withdrawal. No real money or cryptocurrency is sent.');toast('Withdrawal requested');
+  }catch(err){e.textContent='Request failed: '+((err&&err.message)||'Firebase error')}
+  b.disabled=false}
+})();
 </script>
-
 
 </body>
 </html>
